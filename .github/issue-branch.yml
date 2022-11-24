@@ -1,0 +1,43 @@
+# https://github.com/robvanderleek/create-issue-branch#option-2-configure-github-action
+
+# ex: i-4-lower_camel_upper
+# Automatically create a branch from "workflows/create-branch.yml"
+branchName: 'i-${issue.number}-${issue.title,}'
+branches:
+  - label: feature
+    prefix: feature/
+    skip: false
+
+  - label: enhancement
+    prefix: feature/
+    skip: false
+
+  - label: documentation
+    prefix: docs/
+    skip: false
+
+  - label: bug
+    prefix: bugfix/
+    skip: false
+
+  - label: hotfix
+    prefix: hotfix/
+    name: master
+    skip: false
+
+  - label: '*'
+    skip: true
+
+commentMessage: |
+  Branch [${branchName}](${repository.html_url}/tree/${branchName}) created!
+  Run the following to start developing
+  ```bash
+  git fetch origin && git checkout ${branchName}
+  ```
+openPR: true
+autoCloseIssue: true
+copyIssueDescriptionToPR: true
+copyIssueLabelsToPR: true
+copyIssueAssigneeToPR: true
+copyIssueProjectsToPR: true
+copyIssueMilestoneToPR: true
